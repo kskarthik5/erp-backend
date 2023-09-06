@@ -29,5 +29,9 @@ jobs:
           cache: npm
       - name: Installation
         run: npm ci
+      - name: Defining env vars for testing environment
+        run: export DB_MODE="GA"
+      - name: Create mongoDB Docker container      
+        run: sudo docker run -d -p 27017:27017 mongo:latest
       - name: Running Tests 
         run: npm run test
