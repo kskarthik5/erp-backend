@@ -5,6 +5,8 @@ on:
         branches:
             - main
             - development
+        paths:
+            - ".github/workflows/**"
 
 
 env: 
@@ -29,5 +31,9 @@ jobs:
           cache: npm
       - name: Installation
         run: npm ci
+      - name: Defining env vars for testing environment
+        run: export DB_MODE="GA"
+      - name: Create mongoDB Docker container      
+        run: sudo docker stack deploy -c ./.github/workflows/stack.yml mongo 
       - name: Running Tests 
         run: npm run test
